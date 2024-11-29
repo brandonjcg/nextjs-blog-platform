@@ -3,7 +3,7 @@ import User from "@/models/User";
 import bcrypt from "bcryptjs";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default async function registerUsersHandler(
+export default async function createUsersHandler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
