@@ -35,13 +35,12 @@ const Navbar: React.FC<NavbarProps> = (props) => {
         ) : (
           <>
             <span className="text-sm font-medium">Welcome, {username}!</span>
-            <Link
-              href="/"
+            <button
               className="text-sm font-medium text-red-600 hover:underline"
               onClick={onLogout} // Call the onLogout function when clicked
             >
               Logout
-            </Link>
+            </button>
           </>
         )}
       </nav>
