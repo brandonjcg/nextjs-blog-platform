@@ -7,9 +7,9 @@ export default async function deleteComments(
   res: NextApiResponse
 ) {
   if (req.method === "DELETE") {
-    const { id, userId, role } = req.body;
+    const { id, username, role } = req.body;
 
-    if (!id || !userId || !role) {
+    if (!id || !username || !role) {
       return res
         .status(400)
         .json({ message: "Comment ID, User ID and role are required!" });
@@ -24,13 +24,13 @@ export default async function deleteComments(
         return res.status(404).json({ message: "Comment not found" });
       }
 
-      if (role !== "admin" && comment.author.toString() !== userId) {
+      if (role !== "admin" && comment.username !== username) {
         return res.status(403).json({
           message: "You do not have permission to delete this comment",
         });
       }
 
-      await comment.deleteOne();
+      await Comment.findByIdAndDelete(id);
 
       return res.status(200).json({ message: "Comment deleted successfully" });
     } catch (error) {
