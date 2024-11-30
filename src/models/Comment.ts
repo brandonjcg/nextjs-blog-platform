@@ -3,7 +3,7 @@ import mongoose, { Schema, Document } from "mongoose";
 interface IComment extends Document {
   postId: mongoose.Schema.Types.ObjectId;
   content: string;
-  author: mongoose.Schema.Types.ObjectId;
+  username: string;
   createdAt: Date;
 }
 
@@ -15,9 +15,8 @@ const CommentSchema = new Schema<IComment>(
       required: true,
     },
     content: { type: String, required: true },
-    author: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+    username: {
+      type: String,
       required: true,
     },
   },
