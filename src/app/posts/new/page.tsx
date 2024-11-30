@@ -13,7 +13,6 @@ const NewPostPage: React.FC = () => {
 
   useEffect(() => {
     // Check if the user is logged in
-    const token = localStorage.getItem("token");
     if (isUserLoggedIn() === false) {
       router.push("/login"); // Redirect to login if not logged in
     }
