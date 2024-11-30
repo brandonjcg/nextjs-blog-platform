@@ -7,8 +7,8 @@ import { jwtDecode } from "jwt-decode";
 import { Token } from "@/app/interface/Token";
 
 const PostPage: React.FC = () => {
+  const router = useRouter();
   const [post, setPost] = useState<Post | null>(null);
-  const [isUserAdmin, setIsUserAdmin] = useState<boolean>(false);
   const { id } = useParams<{ id: string | undefined }>();
 
   useEffect(() => {
@@ -21,20 +21,6 @@ const PostPage: React.FC = () => {
     };
 
     fetchPost();
-
-    const token = localStorage.getItem("token");
-
-    if (token) {
-      try {
-        const decodedToken: Token = jwtDecode(token);
-
-        if (decodedToken.role === "admin") {
-          setIsUserAdmin(true);
-        }
-      } catch (error) {
-        console.error("Error decoding token:", error);
-      }
-    }
   }, [id]);
 
   const canDeletePost = () => {
@@ -90,12 +76,14 @@ const PostPage: React.FC = () => {
 
       const data = await response.json();
 
+      console.log("data::", data);
+
       if (data.message !== "Post deleted successfully") {
         console.error("Could not delete the post:", data.message);
         alert(data.message || "Error deleting the post");
       } else {
         console.log(data.message); // Log the success message
-        const router = useRouter();
+        alert("Post deleted successfully");
         router.push("/"); // Redirect after successful deletion
       }
     } catch (error) {
