@@ -15,6 +15,11 @@ const PostsPage: React.FC = () => {
     const fetchPosts = async () => {
       const response = await fetch("/api/posts/getPosts");
       const data = await response.json();
+
+      if (!data.posts) {
+        return;
+      }
+
       setPosts(data.posts);
     };
 
