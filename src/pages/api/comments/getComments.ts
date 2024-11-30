@@ -12,7 +12,7 @@ export default async function getComments(
       const comments = await Comment.find();
       res.status(200).json(comments);
     } catch (error) {
-      res.status(500).json({ message: "Internal server error" });
+      res.status(500).json({ message: "Internal server error: " + error });
     }
   }
 
