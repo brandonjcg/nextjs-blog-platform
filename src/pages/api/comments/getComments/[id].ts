@@ -29,7 +29,7 @@ export default async function getComments(
         .status(200)
         .json({ comments, message: "Comments fetched successfully" });
     } catch (error) {
-      res.status(500).json({ message: "Internal server error" });
+      res.status(500).json({ message: "Internal server error: " + error });
     }
   }
 
