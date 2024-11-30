@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Post } from "@/app/interface/Post";
+import { Post } from "@/app/interfaces/Post";
 import { useParams, useRouter } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
-import { Token } from "@/app/interface/Token";
-import Comment from "@/app/interface/Comment";
+import { Token } from "@/app/interfaces/Token";
+import Comment from "@/app/interfaces/Comment";
 import { isUserLoggedIn } from "@/utils/auth";
 
 const PostPage: React.FC = () => {

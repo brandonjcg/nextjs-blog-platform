@@ -1,7 +1,7 @@
 "use client";
 
 import { use, useEffect, useState } from "react";
-import { Post } from "@/app/interface/Post";
+import { Post } from "@/app/interfaces/Post";
 import { useRouter } from "next/navigation";
 import { isUserLoggedIn } from "@/utils/auth";
 import Link from "next/link";
