@@ -1,4 +1,5 @@
 import connectDB from "@/utils/db";
+import Comment from "@/models/Comment";
 import Post from "@/models/Post";
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -30,6 +31,7 @@ export default async function deletePostsHandler(
           .json({ message: "You do not have permission to delete this post" });
       }
 
+      await Comment.deleteMany({ postId: id });
       await post.deleteOne({ _id: id });
 
       return res.status(200).json({ message: "Post deleted successfully" });
