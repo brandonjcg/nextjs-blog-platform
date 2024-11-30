@@ -9,14 +9,16 @@ export default async function createComments(
   if (req.method === "POST") {
     try {
       await connectDB();
-      const { postId, content, author } = req.body;
+      const { postId, content, username } = req.body;
       const newComment = new Comment({
-        postId,
         content,
-        author,
+        postId,
+        username,
       });
       const commentData = await newComment.save();
-      res.status(201).json(commentData);
+      res
+        .status(201)
+        .json({ commentData, message: "Comment added successfully" });
     } catch (error) {
       res.status(500).json({ message: "Internal server error" });
     }
