@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/20/solid";
+import { toast } from "react-toastify";
 
 export default function Signup() {
   const [formData, setFormData] = useState({
@@ -27,7 +28,7 @@ export default function Signup() {
 
     // Check if the passwords match
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match!");
+      toast.error("Passwords do not match!");
       return;
     }
 
@@ -49,17 +50,17 @@ export default function Signup() {
       if (!response.ok) {
         // Handle server-side errors
         const errorData = await response.json();
-        alert(errorData.message || "Error registering user");
+        toast.error(errorData.message || "Error registering user");
       } else {
         // Handle successful registration
         const data = await response.json();
-        alert("User registered successfully!");
+        toast.success("User registered successfully!");
         console.log(data);
       }
     } catch (error) {
       // Handle client-side errors (e.g., network issues)
       console.error("Error submitting form:", error);
-      alert("An error occurred. Please try again later.");
+      toast.error("An error occurred. Please try again later.");
     } finally {
       setLoading(false);
     }

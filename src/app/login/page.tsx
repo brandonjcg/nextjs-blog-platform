@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/20/solid";
+import { toast } from "react-toastify";
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -39,18 +40,18 @@ export default function Login() {
       if (!response.ok) {
         // Handle server-side errors
         const errorData = await response.json();
-        alert(errorData.message || "Error logging in");
+        toast.error(errorData.message || "Error logging in");
       } else {
         // Handle successful login
         const { token } = await response.json();
-        alert("Login successful!");
+        toast.success("Login successful!");
         localStorage.setItem("token", token);
         window.location.href = "/"; // Redirect to home page
       }
     } catch (error) {
       // Handle client-side errors (e.g., network issues)
       console.error("Error submitting form:", error);
-      alert("An error occurred. Please try again later.");
+      toast.error("An error occurred. Please try again later.");
     } finally {
       setLoading(false);
     }

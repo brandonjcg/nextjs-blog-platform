@@ -5,6 +5,8 @@ import "./../styles/globals.css";
 import Navbar from "@/components/Navbar";
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -53,6 +55,9 @@ export default function RootLayout({
 
         {/* Main Content */}
         <main className="container mx-auto py-8">{children}</main>
+
+        {/* Toaster */}
+        <ToastContainer />
       </body>
     </html>
   );
