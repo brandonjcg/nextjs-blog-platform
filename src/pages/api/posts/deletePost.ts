@@ -7,9 +7,9 @@ export default async function deletePostsHandler(
   res: NextApiResponse
 ) {
   if (req.method === "DELETE") {
-    const { id, userId, role } = req.body;
+    const { id, username, role } = req.body;
 
-    if (!id || !userId || !role) {
+    if (!id || !username || !role) {
       return res
         .status(400)
         .json({ message: "Post ID, User ID and role are required!" });
@@ -24,13 +24,13 @@ export default async function deletePostsHandler(
         return res.status(404).json({ message: "Post not found" });
       }
 
-      if (role !== "admin" && post.author.toString() !== userId) {
+      if (role !== "admin" && post.authorName.toString() !== username) {
         return res
           .status(403)
           .json({ message: "You do not have permission to delete this post" });
       }
 
-      await post.delete();
+      await post.deleteOne({ _id: id });
 
       return res.status(200).json({ message: "Post deleted successfully" });
     } catch (error) {
