@@ -20,7 +20,7 @@ export default async function createComments(
         .status(201)
         .json({ commentData, message: "Comment added successfully" });
     } catch (error) {
-      res.status(500).json({ message: "Internal server error" });
+      res.status(500).json({ message: "Internal server error: " + error });
     }
   }
 
