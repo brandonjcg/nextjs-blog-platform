@@ -1,9 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { Post } from "@/app/interface/Post";
+import { useRouter } from "next/navigation";
+import { isUserLoggedIn } from "@/utils/auth";
+import Link from "next/link";
 
 const PostsPage: React.FC = () => {
+  const router = useRouter();
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
@@ -14,6 +19,7 @@ const PostsPage: React.FC = () => {
     };
 
     fetchPosts();
+    setIsLoggedIn(isUserLoggedIn());
   }, []);
 
   return (
@@ -25,11 +31,11 @@ const PostsPage: React.FC = () => {
             key={post._id}
             className="bg-white border border-gray-300 rounded-lg p-4 shadow-md hover:shadow-lg transition duration-300 ease-in-out"
           >
-            <a href={`/posts/${post._id}`} className="block">
+            <Link href={`/posts/${post._id}`} className="block">
               <h2 className="text-2xl font-semibold text-gray-800 mb-2">
                 {post.title}
               </h2>
-            </a>
+            </Link>
             <p className="text-sm text-gray-600 mb-2">By: {post.authorName}</p>
             <p className="text-sm text-gray-500">
               Created on: {new Date(post.createdAt).toLocaleDateString()}
@@ -37,6 +43,16 @@ const PostsPage: React.FC = () => {
           </div>
         ))}
       </div>
+      {isLoggedIn && (
+        <div className="mt-8 text-center">
+          <button
+            onClick={() => router.push("/posts/new")}
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600"
+          >
+            Add New Post
+          </button>
+        </div>
+      )}
     </div>
   );
 };
