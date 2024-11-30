@@ -5,14 +5,20 @@ import { Post } from "@/app/interface/Post";
 import { useParams, useRouter } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
 import { Token } from "@/app/interface/Token";
+import Comment from "@/app/interface/Comment";
+import { isUserLoggedIn } from "@/utils/auth";
 
 const PostPage: React.FC = () => {
   const router = useRouter();
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [newComment, setNewComment] = useState<string>("");
   const [post, setPost] = useState<Post | null>(null);
   const { id } = useParams<{ id: string | undefined }>();
 
   useEffect(() => {
     if (!id) return;
+
+    console.log("id::", id);
 
     const fetchPost = async () => {
       const response = await fetch(`/api/posts/getPost/${id}`);
@@ -20,7 +26,15 @@ const PostPage: React.FC = () => {
       setPost(data.post);
     };
 
+    const fetchComments = async () => {
+      const response = await fetch(`/api/comments/getComments/${id}`);
+      const data = await response.json();
+      console.log("data::", data);
+      setComments(data.comments);
+    };
+
     fetchPost();
+    fetchComments();
   }, [id]);
 
   const canDeletePost = () => {
@@ -92,6 +106,49 @@ const PostPage: React.FC = () => {
     }
   };
 
+  const handleAddComment = async (e: React.FormEvent) => {
+    const token = localStorage.getItem("token");
+
+    if (!token || !newComment.trim()) return;
+
+    let decodedToken: Token;
+
+    try {
+      decodedToken = jwtDecode(token);
+    } catch (error) {
+      console.error("Error decoding token:", error);
+      alert("An error occured while decoding token. Please try again later.");
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/comments/createComment`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          content: newComment,
+          postId: post?._id,
+          username: decodedToken.username,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.message !== "Comment added successfully") {
+        console.error("Error adding comment:", data.message);
+        alert(data.message || "Error adding comment");
+      } else {
+        setComments((prevComments) => [...prevComments, data.commentData]);
+        setNewComment("");
+      }
+    } catch (error) {
+      console.error("Error adding comment:", error);
+      alert("An error occurred. Please try again later.");
+    }
+  };
+
   if (!post)
     return (
       <div className="flex justify-center items-center text-lg">Loading...</div>
@@ -117,6 +174,50 @@ const PostPage: React.FC = () => {
         <p className="text-gray-500">
           {new Date(post.createdAt).toLocaleDateString()}
         </p>
+      </div>
+
+      {/* Comment Section */}
+      <div className="mt-10">
+        <h2 className="text-xl font-semibold mb-4">Comments</h2>
+
+        {/* Display Comments */}
+        {comments.length > 0 ? (
+          <div className="space-y-4">
+            {comments.map((comment) => (
+              <div
+                key={comment._id}
+                className="p-4 bg-gray-100 rounded-lg shadow-sm"
+              >
+                <p className="font-semibold">{comment.username}</p>
+                <p>{comment.content}</p>
+                <p className="text-sm text-gray-500">
+                  {new Date(comment.createdAt).toLocaleDateString()}
+                </p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p>No comments yet. Be the first to comment!</p>
+        )}
+
+        {/* Comment Input */}
+        {isUserLoggedIn() && (
+          <div className="mt-4">
+            <textarea
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+              placeholder="Write a comment..."
+              rows={4}
+              className="w-full p-3 border border-gray-300 rounded-lg"
+            ></textarea>
+            <button
+              onClick={handleAddComment}
+              className="mt-3 bg-blue-600 text-white px-4 py-2 rounded-lg"
+            >
+              Add Comment
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Delete Post Button */}
