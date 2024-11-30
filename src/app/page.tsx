@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Post } from "@/app/interfaces/Post";
 import { useRouter } from "next/navigation";
 import { isUserLoggedIn } from "@/utils/auth";
@@ -36,6 +36,9 @@ const PostsPage: React.FC = () => {
                 {post.title}
               </h2>
             </Link>
+            <p className="text-gray-700 mb-2">
+              {post.content.substring(0, 100)}...
+            </p>
             <p className="text-sm text-gray-600 mb-2">By: {post.authorName}</p>
             <p className="text-sm text-gray-500">
               Created on: {new Date(post.createdAt).toLocaleDateString()}
