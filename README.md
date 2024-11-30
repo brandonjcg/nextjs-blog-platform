@@ -47,12 +47,11 @@ This will install the necessary dependencies, including:
 - `mongoose` for MongoDB integration
 - `jsonwebtoken` for JWT authentication
 - `bcryptjs` for password hashing
-- `@tanstack/react-query` for state management
 
 ### Set Up MongoDB
 
-1. If you're using **MongoDB Atlas**, create a new cluster and get your connection string.
-2. If you're using a **local MongoDB instance**, make sure it's running on `mongodb://localhost:27017`.
+1. If you're using **MongoDB Atlas**, please message me, I can provide a connection string. (Preferred)
+2. If you're using a **local MongoDB instance**, make sure it's running on `mongodb://localhost:27017`. (You have to install MongoDB in your system.)
 
 Update the MongoDB URI in the `.env` file with your connection string.
 
