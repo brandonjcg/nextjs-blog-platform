@@ -55,7 +55,6 @@ export default function Signup() {
         // Handle successful registration
         const data = await response.json();
         toast.success("User registered successfully!");
-        console.log(data);
       }
     } catch (error) {
       // Handle client-side errors (e.g., network issues)
@@ -67,7 +66,7 @@ export default function Signup() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center min-h-[calc(100vh-16vh)] bg-gray-100">
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-md bg-white p-8 shadow-lg rounded-lg overflow-hidden"
