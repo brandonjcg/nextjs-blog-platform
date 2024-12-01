@@ -107,16 +107,18 @@ export default function Signup() {
             onChange={handleChange}
             required
             className="mt-1 w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+            data-testid="password-input"
           />
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
             className="absolute right-3 top-9 text-gray-500 hover:text-gray-700"
+            aria-label={showPassword ? "Show password" : "Hide password"}
           >
             {showPassword ? (
-              <EyeSlashIcon className="h-5 w-5" />
-            ) : (
               <EyeIcon className="h-5 w-5" />
+            ) : (
+              <EyeSlashIcon className="h-5 w-5" />
             )}
           </button>
         </div>
@@ -137,16 +139,20 @@ export default function Signup() {
             onChange={handleChange}
             required
             className="mt-1 w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+            data-testid="confirm-password-input"
           />
           <button
             type="button"
             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
             className="absolute right-3 top-9 text-gray-500 hover:text-gray-700"
+            aria-label={
+              showPassword ? "Show confirm password" : "Hide confirm password"
+            }
           >
             {showConfirmPassword ? (
-              <EyeSlashIcon className="h-5 w-5" />
-            ) : (
               <EyeIcon className="h-5 w-5" />
+            ) : (
+              <EyeSlashIcon className="h-5 w-5" />
             )}
           </button>
         </div>
