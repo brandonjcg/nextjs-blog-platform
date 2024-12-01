@@ -53,7 +53,6 @@ export default function Signup() {
         toast.error(errorData.message || "Error registering user");
       } else {
         // Handle successful registration
-        const data = await response.json();
         toast.success("User registered successfully!");
       }
     } catch (error) {
