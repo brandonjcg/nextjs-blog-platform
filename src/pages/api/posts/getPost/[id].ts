@@ -14,7 +14,6 @@ export default async function getPostByIdHandler(
     }
 
     try {
-      console.log("req.query.id", req.query.id);
       await connectDB();
 
       const post = await Post.findById(req.query.id);
