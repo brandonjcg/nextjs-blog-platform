@@ -33,3 +33,21 @@ describe("Login", () => {
     });
   });
 });
+
+describe("handle change", () => {
+  it("should update the input value when typing", async () => {
+    render(<Login />);
+    const usernameInput = screen.getByLabelText(/username/i);
+    const passwordInput = screen.getByTestId(
+      "password-input"
+    ) as HTMLInputElement;
+
+    userEvent.type(usernameInput, "test username");
+    userEvent.type(passwordInput, "test password");
+
+    waitFor(() => {
+      expect(usernameInput).toHaveValue("test username");
+      expect(passwordInput).toHaveValue("test password");
+    });
+  });
+});

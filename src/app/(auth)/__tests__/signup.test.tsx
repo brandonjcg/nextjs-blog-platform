@@ -12,7 +12,9 @@ describe("Signup", () => {
     expect(screen.getByText("Password")).toBeInTheDocument();
     expect(screen.getByText("Confirm Password")).toBeInTheDocument();
   });
+});
 
+describe("Hide and show password", () => {
   it("should hide password when clicking on the eye icon", async () => {
     render(<Signup />);
     const eyeIcon = screen.getByRole("button", { name: /show password/i });
@@ -48,6 +50,18 @@ describe("Signup", () => {
 
     await waitFor(() => {
       expect(confirmPasswordInput.type).toBe("password");
+    });
+  });
+});
+
+describe("handle change", () => {
+  it("should update the input value when typing", async () => {
+    render(<Signup />);
+    const usernameInput = screen.getByLabelText(/username/i);
+    userEvent.type(usernameInput, "test username");
+
+    await waitFor(() => {
+      expect(usernameInput).toHaveValue("test username");
     });
   });
 });
