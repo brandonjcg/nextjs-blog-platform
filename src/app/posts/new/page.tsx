@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { isUserLoggedIn } from "@/utils/auth";
 
-const NewPostPage: React.FC = () => {
+export default function NewPostPage() {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
@@ -99,6 +99,4 @@ const NewPostPage: React.FC = () => {
       </form>
     </div>
   );
-};
-
-export default NewPostPage;
+}

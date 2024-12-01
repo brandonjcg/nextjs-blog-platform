@@ -5,11 +5,11 @@ interface NavbarProps {
   onLogout: () => void;
 }
 
-const Navbar: React.FC<NavbarProps> = (props) => {
+export default function Navbar(props: NavbarProps) {
   const { username, onLogout } = props;
 
   return (
-    <header className="bg-white shadow-md py-4">
+    <header className="bg-white shadow-md p-4">
       <nav className="container mx-auto flex justify-end items-center space-x-6">
         <Link
           href="/"
@@ -46,6 +46,4 @@ const Navbar: React.FC<NavbarProps> = (props) => {
       </nav>
     </header>
   );
-};
-
-export default Navbar;
+}
