@@ -100,16 +100,18 @@ export default function Login() {
             onChange={handleChange}
             required
             className="mt-1 w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+            data-testid="password-input"
           />
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
             className="absolute right-3 top-9 text-gray-500 hover:text-gray-700"
+            aria-label={showPassword ? "Show password" : "Hide password"}
           >
             {showPassword ? (
-              <EyeSlashIcon className="h-5 w-5" />
-            ) : (
               <EyeIcon className="h-5 w-5" />
+            ) : (
+              <EyeSlashIcon className="h-5 w-5" />
             )}
           </button>
         </div>
@@ -120,10 +122,7 @@ export default function Login() {
           className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 focus:outline-none disabled:opacity-50 flex items-center justify-center"
           disabled={loading} // Disable button when loading
         >
-          {loading && (
-            <div className="w-5 h-5 border-4 border-t-4 border-white border-solid rounded-full animate-spin mr-2"></div>
-          )}
-          {!loading && "Login"}
+          {loading ? "Logging in..." : "Login"}
         </button>
       </form>
     </div>
