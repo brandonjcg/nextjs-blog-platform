@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Post } from "@/app/interfaces/Post";
+import { Post } from "@/interfaces/Post";
 import { useRouter } from "next/navigation";
 import { isUserLoggedIn } from "@/utils/auth";
 import Link from "next/link";
 
-const PostsPage: React.FC = () => {
+export default function PostPage() {
   const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [posts, setPosts] = useState<Post[]>([]);
@@ -63,6 +63,4 @@ const PostsPage: React.FC = () => {
       )}
     </div>
   );
-};
-
-export default PostsPage;
+}
