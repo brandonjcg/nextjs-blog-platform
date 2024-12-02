@@ -24,6 +24,8 @@ export default async function loginHandler(
 
       const existingUser = await User.findOne({ username });
 
+      console.log("existingUser", existingUser);
+
       if (!existingUser) {
         return res.status(401).json({ message: "Invalid username" });
       }
@@ -32,6 +34,8 @@ export default async function loginHandler(
         password,
         existingUser.password
       );
+
+      console.log("isValidPassword", isValidPassword);
 
       if (!isValidPassword) {
         return res.status(401).json({ message: "Invalid password" });
@@ -44,6 +48,8 @@ export default async function loginHandler(
           expiresIn: "1h",
         }
       );
+
+      console.log("token in login.ts", token);
 
       return res.status(200).json({ message: "Login successful", token });
     } catch (error) {
