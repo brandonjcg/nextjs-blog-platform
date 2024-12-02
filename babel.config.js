@@ -8,15 +8,6 @@ module.exports = {
             ],
             plugins: [
                 '@babel/plugin-syntax-jsx', // Ensures that JSX syntax is properly parsed
-                [
-                    "module-resolver",
-                    {
-                        "root": ["./"],
-                        "alias": {
-                            "@": "./"
-                        }
-                    }
-                ]
             ],
         }
     }
