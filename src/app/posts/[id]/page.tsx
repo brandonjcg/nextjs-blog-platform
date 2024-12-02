@@ -97,6 +97,16 @@ export default function PostPage() {
 
   return (
     <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg my-8">
+      {/* Back Button */}
+      <div className="mb-4">
+        <button
+          onClick={() => router.back()}
+          className="text-blue-500 hover:text-blue-700"
+        >
+          &larr; Back
+        </button>
+      </div>
+
       {/* Post Title */}
       <h1 className="text-3xl font-extrabold text-gray-800 mb-4">
         {post.title}
