@@ -2,7 +2,7 @@ module.exports = {
     testEnvironment: 'jsdom',
     setupFilesAfterEnv: ['@testing-library/jest-dom'],
     transform: {
-        '^.+\\.tsx?$': 'babel-jest',
+        '^.+\\.tsx?$': ['babel-jest', { configFile: './jest.babel.config.js' }],
     },
     moduleNameMapper: {
         "^@/components/(.*)$": "<rootDir>/components/$1",
