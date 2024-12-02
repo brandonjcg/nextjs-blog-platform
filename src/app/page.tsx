@@ -74,7 +74,7 @@ export default function PostPage() {
       </div>
 
       {/* Pagination Controls */}
-      {paginatedPosts.length > postsPerPage && (
+      {totalPages > 1 && (
         <div className="flex justify-center mt-8 space-x-4">
           <button
             onClick={handlePreviousPage}
